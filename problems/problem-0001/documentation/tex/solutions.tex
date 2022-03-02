@@ -1,0 +1,68 @@
+%% tex/description.tex
+
+\section*{Solution(s)}
+
+\subsection*{Solution 1: Brute Force}
+
+The brute force approach here is an $O(n^2)$ algorithm using nested \code{for} loops.
+
+\vspace*{1em}
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwData{A sequence $(a_i)_{i \in [0, n)}$ of $n$ integers}
+    \KwData{An integer $N$}
+    \KwResult{The unique unordered pair $\{j, k\}$ of the indices $j, k \in [0, n)$ of the two numbers from $(a_i)_{i \in [0, n)}$ s.t.~$a_j + a_k = N$}
+    \BlankLine
+    \For{$j \in [0, n)$}{
+        \For{$k \in (j, n)$} {
+            \If{$a_j + a_k = N$} {
+                \Return{$\{j, k\}$}
+            }
+        }
+    }
+\end{algorithm}
+\vspace*{1em}
+
+The worst case scenario for this algorithm is when the numbers are the last two in the array, in which case the total number of iterations is
+$$
+(n - 1) + (n - 2) + \cdots + 2 + 1 = \sum_{i=1}^{n-1} i = \frac{n(n - 1)}{2} - n = \frac{1}{2}n^2 - \frac{3}{2}n.
+$$
+Therefore, the algorithm has, as stated above, $O(n^2)$ time complexity.
+
+The benefit of this algorithm is that it is very easy to understand and to implement.
+
+
+\subsection*{Solution 2}
+
+A more efficient approach is as follows:
+
+\vspace*{1em}
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwData{A sequence $(a_i)_{i \in [0, n)}$ of $n$ integers}
+    \KwData{An integer $N$}
+    \KwResult{The unique unordered pair $\{j, k\}$ of the indices $j, k \in [0, n)$ of the two numbers from $(a_i)_{i \in [0, n)}$ s.t.~$a_j + a_k = N$}
+    \BlankLine
+    $X_0 \gets \{(a_0, 0)\}$\;
+    \For{$j \in (0, n)$}{
+        $x \gets N - a_j$\;
+        \eIf{$x \in \pi_{j1}(X_j)$} {
+            \Return{$\{\pi_{j2}(x), j\}$}
+        }{
+            $X_j \gets X_{j - 1} \bigcup \{(a_j, j)\}$\;
+        }
+    }
+\end{algorithm}
+\vspace*{1em}
+
+The idea behind the sets $X_0, X_1, \ldots, X_{n - 1}$ is to keep track of the elements of $(a_i)_{i \in [0, n)}$ that have been ``visited'' during the iteration process, whose elements are the ordered pairs of the elements $a_0, a_1, \ldots, a_{n - 1} \in (a_i)_{i \in [0, n)}$ and their associated indices, so that, for each $k \in [0, n)$, $X_k = \{(a_0, 0), (a_1, 1), \ldots, (a_k, k)\}$. For each $k \in [0, n)$, the functions $\pi_{k \alpha}$ are the projection functions on $X_k$ which map each $(a_k, k)$ to the $\alpha^{\text{th}}$ coordinate:
+\begin{align*}
+  \pi_{k1} &: (a_k, k) \mapsto a_k \\
+  \pi_{k2} &: (a_k, k) \mapsto k.
+\end{align*}
+At the $k^{\text{th}}$ iteration, the idea is to search for a number $x \in (a_i)_{i \in [0, n)}$ that satisfies $x + a_k = N$, or, equivalently, search for an $x \in (a_i)_{i \in [0, n)}$ that satisfies $x = N - a_k$.
+
+The worst case scenario for this algorithm is when the numbers are the last two in the array, in which case $n - 1$ iterations would be required. If the search operation can be performed in $O(1)$ time, this algorithm is therefore $O(n)$.
+
+
+\clearpage

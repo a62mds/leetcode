@@ -1,0 +1,29 @@
+%% sty/preamble.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}
+
+\usepackage{algorithm2e} %for psuedo code
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem} % nice enumerated lists
+\usepackage{fancyhdr} % nice headers
+\usepackage[T1]{fontenc} % 8-bit font encoding w/ 256 glyphs (modern)
+\usepackage{fontspec} % specify fonts
+\usepackage[left=2cm,bottom=2cm,right=2cm,top=3cm]{geometry} % page geometry
+\usepackage{graphicx} % figures
+\usepackage{hyperref} % hyperlinks
+\usepackage{lastpage} % page# of #pages in footer
+\usepackage{tabularx} % better tables
+
+\usepackage{sty/sourcecode}
+
+
+%% document setup
+\author{Mitch Sullivan}
+\date{\today}
+
+%% hyperlinks
+\hypersetup{colorlinks=true}
+\urlstyle{same}
+
+\endinput

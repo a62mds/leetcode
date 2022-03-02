@@ -1,0 +1,47 @@
+%% tex/description.tex
+
+\section*{Problem}
+
+Given an array of integers \code{nums} and an integer \code{target}, return \textit{indices of the two numbers such that they add up to} \code{target}. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.
+
+\subsection*{Example 1:}
+
+\begin{lstlisting}
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+\end{lstlisting}
+
+
+\subsection*{Example 2:}
+
+\begin{lstlisting}
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+\end{lstlisting}
+
+
+\subsection*{Example 3:}
+
+\begin{lstlisting}
+Input: nums = [3,3], target = 6
+Output: [0,1]
+\end{lstlisting}
+
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+  \item{$2 \le \,$ \texttt{nums.length} $\, \le 10^4$}
+  \item{$-10^9 \le \,$ \texttt{nums[i]} $\, \le 10^9$}
+  \item{$-10^9 \le \,$ \texttt{target} $\, \le 10^9$}
+  \item{\textbf{Only one valid answer exists.}}
+\end{itemize}
+
+
+\subsection*{Follow-up:}
+
+Can you come up with an algorithm that is less than $O(n^2)$ time complexity?
+
+
+\clearpage

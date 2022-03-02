@@ -1,0 +1,39 @@
+%% sty/sourcecode.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mdsSrc}
+
+\RequireXeTeX
+
+\RequirePackage{fontspec}
+\RequirePackage{listings}
+\RequirePackage{xcolor}
+
+
+%% change ttfamily font
+\setmonofont[ExternalLocation=fonts/]{UbuntuMono-R.ttf}
+
+%% define colors
+\definecolor{commentColor}{RGB}{97,99,101}
+\definecolor{keywordColor}{RGB}{130,36,51}
+\definecolor{stringColor}{RGB}{51,130,36}
+\definecolor{numberColor}{RGB}{36,51,130}
+\definecolor{backgroundColor}{gray}{0.95}
+
+%% inline code style
+\newcommand{\code}[1]{\colorbox{backgroundColor}{\texttt{#1}}}
+
+%% code block style
+\lstset{
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{backgroundColor},
+  commentstyle=\color{commentColor},
+  numberstyle=\color{numberColor},
+  keywordstyle=\bfseries\color{keywordColor},
+  stringstyle=\color{stringColor},
+  showspaces=false,
+  showstringspaces=false,
+  breaklines=true,
+  tabsize=4
+}
+
+\endinput
