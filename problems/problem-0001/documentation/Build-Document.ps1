@@ -33,7 +33,7 @@ Try {
         }
     }
 
-    Move-Item -Path "${PSScriptRoot}/${BUILD_DIRNAME}/${PROBLEM_NAME}.pdf" -Destination "${PSScriptRoot}"
+    Move-Item -Force -Path "${PSScriptRoot}/${BUILD_DIRNAME}/${PROBLEM_NAME}.pdf" -Destination "${PSScriptRoot}"
 }
 Catch {
     Write-Error $Error[0]
