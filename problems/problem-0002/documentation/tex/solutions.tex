@@ -2,5 +2,65 @@
 
 \section*{Solution(s)}
 
+\subsection*{Solution 1}
+
+Let $M, N \in \mathbb{N} \bigcup \{0\}$ be $m$- and $n$-digit numbers, $m, n \in \mathbb{N} \bigcup \{0\}$, and suppose that
+\begin{align*}
+    M &= \sum_{i=0}^{m-1} m_i \times 10^i = m_{m-1} \cdots m_1 m_0,\\
+    N &= \sum_{i=0}^{n-1} n_i \times 10^i = n_{n-1} \cdots n_1 n_0,
+\end{align*}
+where juxtaposition represents concatenation and $m_0, \ldots, m_{m-1}, n_0 \ldots, n_{n-1} \in \{0, 1, \ldots, 9\}$ are the digits of $M$ and $N$, resp. Suppose further that $K = k_{k-1} \cdots k_1 k_0$ is the $k$-digit sum of $M$ and $N$,
+$$
+K = M + N.
+$$
+To simplify the notation, suppose that, without loss of generality, $n \le m$, let $n_n, n_{n+1}, \ldots, n_{m-1} = 0$, and, for each $i \in \{0, 1, \ldots, m-1\}$, let $c_i$ denote the $i^{\text{th}}$ \emph{carry}, where
+\begin{align*}
+    c_0 &= \left\lfloor\frac{m_0 + n_0}{10}\right\rfloor, \\
+    c_1 &= \left\lfloor\frac{m_1 + n_1 + c_0}{10}\right\rfloor, \\
+    c_2 &= \left\lfloor\frac{m_2 + n_2 + c_1}{10}\right\rfloor, \\
+        &\,\,\,\vdots \\
+    c_{m-1} &= \left\lfloor\frac{m_{m-1} + n_{m-1} + c_{m-2}}{10}\right\rfloor.
+\end{align*}
+Owing to the fact that the $m_i$ and $n_i$ are always less than $10$, $c_i$ is guaranteed to be either $0$ or $1$. The $k$ digits of $K$ can then be written
+\begin{align*}
+    k_0 &= \bmod(m_0 + n_0, 10), \\
+    k_1 &= \bmod(m_1 + n_1 + c_0, 10), \\
+    k_2 &= \bmod(m_2 + n_2 + c_1, 10), \\
+        &\,\,\,\vdots \\
+    k_{m-1} &= \bmod(m_{m-1} + n_{m-1} + c_{m-2}, 10), \\
+    k_m &= c_{m-1},
+\end{align*}
+where, as is implicitly expressed, $k = m$ if $c_{m-1} = 1$, or $k = m-1$ if $c_{m-1} = 0$.
+
+The sum $K = M + N$ can then be computed using the following algorithm:
+
+\vspace*{1em}
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwData{The sequence of digits $(m_i)_{i \in \{0, 1, \ldots, m-1\}}$ of a number $M$}
+    \KwData{The sequence of digits $(n_i)_{i \in \{0, 1, \ldots, n-1\}}$ of a number $N$, $n \le m$}
+    \KwResult{The sequence of digits $(k_i)_{i \in \{0, 1, \ldots, k-1\}}$ of the sum $K = M + N$, where $k$ may be either $m$ or $m+1$}
+    \BlankLine
+    $k_0 \gets \bmod(m_0 + n_0, 10)$\;
+    $c_0 \gets \left\lfloor\frac{m_0 + n_0}{10}\right\rfloor$\;
+    \For{$i \in \{1, \ldots, m-1\}$}{
+        \If{$i > n-1$}{
+            $n_i \gets 0$\;
+        }
+        $k_i \gets \bmod(m_i + n_i + c_{i-1}, 10)$\;
+        $c_i \gets \left\lfloor\frac{m_i + n_i + c_{i-1}}{10}\right\rfloor$\;
+    }
+    \eIf{$c_{m-1} > 0$}{
+        $k \gets m+1$\;
+        $k_{k-1} \gets c_{m-1}$\;
+    }{
+        $k \gets m$\;
+    }
+    \Return{$(k_i)_{i \in \{0, 1, \ldots, k-1\}}$}
+\end{algorithm}
+\vspace*{1em}
+
+This has $O(m)$ time complexity and $O(m)$ space complexity.
+
 
 \clearpage
