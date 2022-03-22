@@ -21,26 +21,31 @@ def create(sequence: Optional[Sequence]) -> ListNode:
     return head
 
 
+def are_equal(left: ListNode, right: ListNode) -> bool:
+    """
+    Test equality between the left and right linked lists with `left` and `right` head nodes
+    """
+    left_node = left
+    right_node = right
+    while True:
+        if left_node.val != right_node.val:
+            return False
+        if left_node.next is None:
+            if right_node.next is not None:
+                return False
+            else:
+                break
+        if right_node.next is None:
+            if left_node.next is not None:
+                return False
+            else:
+                break
+        left_node = left_node.next
+        right_node = right_node.next
+    return True
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-    def __eq__(self, other) -> bool:
-        self_ln = self
-        other_ln = other
-        while True:
-            if self_ln.val != other_ln.val:
-                return False
-            if self_ln.next is None:
-                if other_ln.next is not None:
-                    return False
-                else:
-                    break
-            if other_ln.next is None:
-                if self_ln.next is not None:
-                    return False
-                else:
-                    break
-            self_ln = self_ln.next
-            other_ln = other_ln.next
-        return True
