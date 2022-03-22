@@ -2,16 +2,26 @@
 Linked list data structure.
 """
 from __future__ import annotations
+from typing import Optional, Sequence
+
+
+def create(sequence: Optional[Sequence]) -> ListNode:
+    """
+    Create a linked list from a sequence and return the head node
+    """
+    head = ListNode()
+    node = head
+    tail = head
+    for item in sequence:
+        node.val = item
+        node.next = ListNode()
+        tail = node
+        node = node.next
+    tail.next = None
+    return head
+
 
 class ListNode:
-    @classmethod
-    def from_list(cls: ListNode, l: list) -> ListNode:
-        ln = ListNode(l[0])
-        _ln = ln
-        for x in l[1:]:
-            _ln.next = ListNode(x)
-            _ln = _ln.next
-        return ln
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
